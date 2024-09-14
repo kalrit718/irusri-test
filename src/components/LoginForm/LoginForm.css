@@ -1,0 +1,8 @@
+.login-form {
+  height: 90vh;
+  width: 100%;
+}
+.login-form-modal {
+  width: 25%;
+  background-color: rgb(0, 0, 0, 0.3);
+}

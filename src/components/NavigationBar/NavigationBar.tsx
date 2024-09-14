@@ -1,6 +1,7 @@
 import './NavigationBar.css';
 import { Link } from 'react-router-dom';
 import { Container, Navbar, Nav } from 'react-bootstrap';
+import AccountDropdown from '@components/AccountDropdown/AccountDropdown';
 
 export default function NavigationBar() {
   
@@ -22,8 +23,8 @@ export default function NavigationBar() {
             <Nav.Link as={Link} to='/About' className='nav-router-link'>
               About MyTDL
             </Nav.Link>
-            <Nav.Link as={Link} to='/Account' className='nav-router-link'>
-              Account
+            <Nav.Link className='nav-router-link'>
+              <AccountDropdown />
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
