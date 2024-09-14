@@ -24,7 +24,9 @@
     "paths": {
       "@components/*": ["components/*"],
       "@services/*": ["services/*"],
-      "@hooks/*": ["hooks/*"]
+      "@context/*": ["context/*"],
+      "@hooks/*": ["hooks/*"],
+      "@shell/*": ["shell/*"]
     }
   },
   "include": ["src"]

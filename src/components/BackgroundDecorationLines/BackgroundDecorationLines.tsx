@@ -1,4 +1,3 @@
-// import React from 'react';
 import './BackgroundDecorationLines.css';
 
 export default function BackgroundDecorationLines() {

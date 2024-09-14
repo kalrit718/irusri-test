@@ -1,9 +1,9 @@
 .nav-router-link {
   text-decoration: none;
-  color: currentColor;
+  color: aliceblue;
 }
 .nav-router-link:hover {
-  color: currentColor;
+  color: #cbdcea;
 }
 .main-logo-label {
   font-family: Centaur;

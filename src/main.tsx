@@ -5,6 +5,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.tsx'
+import Home from '@shell/Home.tsx';
 
 const router = createBrowserRouter([
   {
@@ -13,11 +14,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <>Home</>
+        element: <Home />
       },
       {
         path: "/Home",
-        element: <>Home</>
+        element: <Home />
       },
       {
         path: "/About",
