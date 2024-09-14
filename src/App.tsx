@@ -1,20 +1,28 @@
 import './App.css'
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
+import { AuthProvider } from '@context/AuthContext'
 import { TodoProvider } from '@context/TodoContext'
+import { useAuth } from '@hooks/useAuth'
 import BackgroundDecorationLines from '@components/BackgroundDecorationLines/BackgroundDecorationLines'
 import NavigationBar from '@components/NavigationBar/NavigationBar'
 
-function App() {
+export default function App() {
 
   return (
     <>
       <BackgroundDecorationLines />
-      <NavigationBar />
-      <TodoProvider>
-        <Outlet />
-      </TodoProvider>
+      <AuthProvider>
+        <NavigationBar />
+        <TodoProvider>
+          <PrivateOutlet />
+        </TodoProvider>
+      </AuthProvider>
     </>
   )
 }
 
-export default App
+const PrivateOutlet = () => {
+  const { token } = useAuth();
+  if (!token) return <Navigate to="/Login" />;
+  return <Outlet />;
+};
