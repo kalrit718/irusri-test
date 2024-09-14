@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { addTodoTask, fetchTodoList, removeTodoTask } from '@services/TodoListService';
+import { addTodoTask, editTodoTask, fetchTodoList, removeTodoTask } from '@services/TodoListService';
 
 export interface Todo {
   id: number;
@@ -10,6 +10,7 @@ export interface Todo {
 interface TodoContextType {
   todos: Todo[];
   addTodo: (title: string, task: string) => void;
+  editTodo: (todo: Todo) => void;
   removeTodo: (id: number) => void;
 }
 
@@ -30,14 +31,31 @@ export const TodoProvider = ({ children }: {children: React.ReactNode}) => {
       .catch((error: Error) => console.error(`[ERROR] : ${error.message}`));
   };
 
+  const editTodo = (todo: Todo) => {
+    editTodoTask(todo)
+      .then((editedTodo: Todo) => {
+        const index: number = todos.findIndex(todo => todo.id === editedTodo.id);
+        if (index !== -1) {
+          const updatedTodos = [...todos];
+          updatedTodos[index] = {
+            ...updatedTodos[index],
+            title: editedTodo.title,
+            task: editedTodo.task
+          }
+          setTodos(updatedTodos);
+        }
+      })
+      .catch((error: Error) => console.error(`[ERROR] : ${error.message}`));
+  };
+
   const removeTodo = (id: number) => {
-    removeTodoTask(id, true)
+    removeTodoTask(id)
       .then((id: number) => setTodos(prev => prev.filter(todo => todo.id !== id)))
       .catch((error: Error) => console.error(`[ERROR] : ${error.message}`));
   };
 
   return (
-    <TodoContext.Provider value={{ todos, addTodo, removeTodo }}>
+    <TodoContext.Provider value={{ todos, addTodo, editTodo, removeTodo }}>
       {children}
     </TodoContext.Provider>
   );

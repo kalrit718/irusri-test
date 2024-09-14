@@ -30,6 +30,17 @@ export const addTodoTask = async (todo: Todo, fail?: boolean): Promise<Todo> => 
   });
 }
 
+export const editTodoTask = async (todo: Todo, fail?: boolean): Promise<Todo> => {
+  return new Promise((resolve, reject) => {
+    if (!fail && todo) {
+      resolve(todo);
+    }
+    else {
+      reject(new Error('Failed to add the task!'));
+    }
+  });
+}
+
 export const removeTodoTask = async (id: number, fail?: boolean): Promise<number> => {
   return new Promise((resolve, reject) => {
     if (!fail) {
