@@ -136,7 +136,7 @@ export default function RegistrationForm() {
           </Modal.Dialog>
         )}
       </Formik>
-      <div className='w-50'></div>
+      <div className='w-50 d-none d-lg-block'></div>
     </div>
   );
 }
