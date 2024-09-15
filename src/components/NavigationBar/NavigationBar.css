@@ -1,4 +1,5 @@
 .nav-router-link {
+  cursor: pointer;
   text-decoration: none;
   color: aliceblue;
 }
