@@ -1,6 +1,6 @@
-import { authenticate, userLogOut, userRegister } from "@services/AuthService";
 import React, { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { authenticate, userLogOut, userRegister } from "@services/AuthService";
 
 export interface User {
   name: string;
@@ -46,8 +46,9 @@ export const AuthProvider = ({ children }: {children: React.ReactNode}) => {
       .then(() => {
         setUser(undefined);
         setToken(undefined);
-        localStorage.removeItem('auth');
-        localStorage.removeItem('user');
+        // localStorage.removeItem('auth');
+        // localStorage.removeItem('user');
+        localStorage.clear();
     
         navigate('/Login');
         return;

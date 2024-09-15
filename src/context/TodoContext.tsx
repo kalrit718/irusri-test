@@ -5,6 +5,7 @@ export interface Todo {
   id: number;
   title: string;
   task: string;
+  done: boolean;
 }
 
 interface TodoContextType {
@@ -17,16 +18,26 @@ interface TodoContextType {
 export const TodoContext = createContext<TodoContextType | undefined>(undefined);
 
 export const TodoProvider = ({ children }: {children: React.ReactNode}) => {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const localTodo: string | null = localStorage.getItem('todos');
+
+  const [todos, setTodos] = useState<Todo[]>(localTodo ? JSON.parse(localTodo) : []);
 
   useEffect(() => {
-    fetchTodoList()
-      .then((todoList: Todo[]) => setTodos(todoList))
-      .catch((error: Error) => console.error(`[ERROR] : ${error.message}`));
+    if (!localTodo) {
+      fetchTodoList()
+        .then((todoList: Todo[]) => setTodos(todoList))
+        .catch((error: Error) => console.error(`[ERROR] : ${error.message}`));
+    }
   }, []);
 
+  useEffect(() => {
+    if (todos) {
+      localStorage.setItem('todos', JSON.stringify(todos));
+    }
+  }, [todos]);  
+
   const addTodo = (todoTitle: string, todoTask: string) => {
-    addTodoTask({id: Date.now(), title: todoTitle, task: todoTask})
+    addTodoTask({id: Date.now(), title: todoTitle, task: todoTask, done: false})
       .then((todo: Todo) => setTodos(prev => [...prev, todo]))
       .catch((error: Error) => console.error(`[ERROR] : ${error.message}`));
   };
@@ -40,9 +51,13 @@ export const TodoProvider = ({ children }: {children: React.ReactNode}) => {
           updatedTodos[index] = {
             ...updatedTodos[index],
             title: editedTodo.title,
-            task: editedTodo.task
+            task: editedTodo.task,
+            done: editedTodo.done
           }
           setTodos(updatedTodos);
+        }
+        else {
+          throw new Error('An unexpected error occured!');
         }
       })
       .catch((error: Error) => console.error(`[ERROR] : ${error.message}`));

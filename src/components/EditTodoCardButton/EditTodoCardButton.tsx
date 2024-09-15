@@ -39,7 +39,7 @@ export default function EditTodoCardButton({ todo }: EditTodoCardButtonProps) {
           }}
           validationSchema={validationSchema} 
           onSubmit={(values, { setSubmitting }) => {
-            editTodo({ id: todo.id, title: values.title, task: values.task });
+            editTodo({ id: todo.id, title: values.title, task: values.task, done: todo.done });
             setSubmitting(false);
             handleClose();
           }}
