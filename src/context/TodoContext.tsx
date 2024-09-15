@@ -5,6 +5,7 @@ export interface Todo {
   id: number;
   title: string;
   task: string;
+  done: boolean;
 }
 
 interface TodoContextType {
@@ -26,7 +27,7 @@ export const TodoProvider = ({ children }: {children: React.ReactNode}) => {
   }, []);
 
   const addTodo = (todoTitle: string, todoTask: string) => {
-    addTodoTask({id: Date.now(), title: todoTitle, task: todoTask})
+    addTodoTask({id: Date.now(), title: todoTitle, task: todoTask, done: false})
       .then((todo: Todo) => setTodos(prev => [...prev, todo]))
       .catch((error: Error) => console.error(`[ERROR] : ${error.message}`));
   };
@@ -40,7 +41,8 @@ export const TodoProvider = ({ children }: {children: React.ReactNode}) => {
           updatedTodos[index] = {
             ...updatedTodos[index],
             title: editedTodo.title,
-            task: editedTodo.task
+            task: editedTodo.task,
+            done: editedTodo.done
           }
           setTodos(updatedTodos);
         }
