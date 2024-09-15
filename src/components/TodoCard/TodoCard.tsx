@@ -1,10 +1,10 @@
 import './TodoCard.css';
+import React, { useState } from 'react';
 import { Card, Form } from 'react-bootstrap';
 import { Todo } from '@context/TodoContext';
 import { useTodo } from '@hooks/useTodo';
 import EditTodoCardButton from '@components/EditTodoCardButton/EditTodoCardButton';
 import DeleteButton from '/src/assets/delete-button.svg'; 
-import React from 'react';
 
 interface TodoCardProps {
   todo: Todo
@@ -13,8 +13,10 @@ interface TodoCardProps {
 export default function TodoCard({ todo }: TodoCardProps) {
 
   const { editTodo, removeTodo } = useTodo();
+  const [ done, setDone] = useState(todo.done);
   
   const handleCheckChange = (e: React.ChangeEvent) => {
+    setDone((e.target as HTMLInputElement).checked);
     const changedTodo: Todo = {
       id: todo.id,
       title: todo.title,
@@ -25,7 +27,7 @@ export default function TodoCard({ todo }: TodoCardProps) {
   };
 
   return (
-    <Card className='todo-card col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 m-2'>
+    <Card className={`todo-card col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 m-2 ${(done) && 'opacity-50'}`}>
       <Card.Body>
         <Card.Title className='d-flex justify-content-between'>
           <div className='d-flex'>
